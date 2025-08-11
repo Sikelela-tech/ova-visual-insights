@@ -40,8 +40,7 @@ const DataAnalysis = ({ datasetInfo }: DataAnalysisProps) => {
 
   const aiModels = [
     { id: 'openai', name: 'OpenAI GPT-4', description: 'Advanced analysis' },
-    { id: 'gemini', name: 'Google Gemini', description: 'Multimodal AI' },
-    { id: 'claude', name: 'Anthropic Claude', description: 'Safety-focused' }
+    { id: 'gemini', name: 'Google Gemini', description: 'Multimodal AI' }
   ];
 
   const outputFormats = [

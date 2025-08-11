@@ -221,12 +221,6 @@ router.get('/models', (req: Request, res: Response) => {
         name: 'Google Gemini Pro',
         description: 'Google\'s multimodal AI model',
         capabilities: ['Data analysis', 'Code generation', 'Multimodal understanding']
-      },
-      {
-        id: 'claude',
-        name: 'Anthropic Claude',
-        description: 'Constitutional AI for safe analysis',
-        capabilities: ['Data analysis', 'Code generation', 'Safety-focused']
       }
     ]
   });

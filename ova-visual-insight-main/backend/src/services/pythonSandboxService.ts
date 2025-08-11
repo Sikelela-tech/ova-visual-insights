@@ -118,7 +118,7 @@ plt.rcParams['figure.dpi'] = 300
     const cleanupCode = `
 # Save the plot
 try:
-    if format == 'html':
+    if '${request.outputFormat}' == 'html':
         # For plotly charts, save as HTML
         if 'fig' in locals() and hasattr(fig, 'write_html'):
             fig.write_html('${outputPath}')
@@ -130,7 +130,7 @@ try:
     else:
         # For static images
         plt.tight_layout()
-        plt.savefig('${outputPath}', format='${format}', dpi=300, bbox_inches='tight')
+        plt.savefig('${outputPath}', format='${request.outputFormat}', dpi=300, bbox_inches='tight')
     
     print(f"Chart saved successfully to: ${outputPath}")
 except Exception as e:
@@ -147,7 +147,7 @@ print("\\n=== EXECUTION COMPLETED ===")
     return new Promise((resolve) => {
       const options = {
         mode: 'text',
-        pythonPath: 'python3', // or 'python' depending on your system
+        pythonPath: process.platform === 'win32' ? 'python' : 'python3', // Use 'python' on Windows
         pythonOptions: ['-u'], // unbuffered output
         scriptPath: dirname(pythonFile),
         args: []

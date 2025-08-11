@@ -4,13 +4,14 @@ A powerful backend service for AI-powered data analysis and visualization, built
 
 ## 🚀 Features
 
-- **Multi-AI Model Support**: OpenAI GPT-4, Google Gemini, Anthropic Claude
+- **Multi-AI Model Support**: OpenAI GPT-4, Google Gemini
 - **File Processing**: Excel and CSV file upload and processing
 - **AI Analysis**: Natural language queries converted to data insights
 - **Python Code Generation**: AI-generated Python code for visualizations
 - **Safe Execution**: Sandboxed Python environment for code execution
 - **Chart Generation**: Multiple output formats (PNG, JPG, SVG, HTML)
 - **Export Functionality**: Download charts in various formats
+- **Cross-Platform**: Works on Windows, macOS, and Linux
 
 ## 🏗️ Architecture
 
@@ -30,13 +31,15 @@ backend/
 │   └── app.ts               # Main server file
 ├── package.json
 ├── tsconfig.json
-└── requirements.txt          # Python dependencies
+├── requirements.txt          # Python dependencies
+├── start.bat                # Windows startup script
+└── start.ps1                # PowerShell startup script
 ```
 
 ## 🛠️ Tech Stack
 
 - **Backend**: Node.js, Express, TypeScript
-- **AI Models**: OpenAI, Google Gemini, Anthropic Claude
+- **AI Models**: OpenAI, Google Gemini
 - **File Processing**: Multer, XLSX
 - **Python Integration**: python-shell
 - **Security**: Helmet, CORS, Rate Limiting
@@ -44,12 +47,22 @@ backend/
 
 ## 📋 Prerequisites
 
-- Node.js 18+ 
-- Python 3.8+
-- npm or yarn
-- AI API keys (OpenAI, Gemini, Claude)
+- **Node.js**: Version 18.0.0 or higher
+- **Python**: Version 3.8 or higher
+- **npm or yarn**: Package manager
+- **AI API keys**: OpenAI and/or Gemini
 
 ## 🚀 Installation
+
+### Quick Start (Windows)
+
+1. **Double-click `start.bat`** or run `start.ps1` in PowerShell
+2. The script will automatically:
+   - Check prerequisites
+   - Install dependencies
+   - Start the server
+
+### Manual Installation
 
 1. **Install Node.js dependencies:**
    ```bash
@@ -92,10 +105,9 @@ PORT=3001
 NODE_ENV=development
 FRONTEND_URL=http://localhost:8080
 
-# AI API Keys
+# AI API Keys (at least one required)
 OPENAI_API_KEY=your_openai_api_key_here
 GEMINI_API_KEY=your_gemini_api_key_here
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
 
 # Security
 JWT_SECRET=your_jwt_secret_here
@@ -142,6 +154,7 @@ The backend includes a safe Python execution environment:
 - **Dependency Management**: Automatic installation of required packages
 - **Output Capture**: Safe capture of generated charts
 - **Error Handling**: Graceful handling of Python execution errors
+- **Cross-Platform**: Automatically detects Windows vs Unix systems
 
 ## 📊 Supported File Formats
 
@@ -173,6 +186,13 @@ npm start
 npm test
 ```
 
+## 🪟 Windows-Specific Notes
+
+- **Python Path**: Uses `python` command (not `python3`)
+- **Startup Scripts**: Use `start.bat` or `start.ps1` for easy setup
+- **Path Issues**: Ensure Python and Node.js are in your system PATH
+- **PowerShell**: Run as Administrator if you encounter permission issues
+
 ## 📝 Environment Variables
 
 | Variable | Description | Default |
@@ -182,7 +202,6 @@ npm test
 | `FRONTEND_URL` | Frontend URL for CORS | http://localhost:8080 |
 | `OPENAI_API_KEY` | OpenAI API key | Required |
 | `GEMINI_API_KEY` | Google Gemini API key | Optional |
-| `ANTHROPIC_API_KEY` | Anthropic Claude API key | Optional |
 
 ## 🔍 Troubleshooting
 
@@ -192,6 +211,7 @@ npm test
 2. **AI API errors**: Verify API keys are correct and have sufficient credits
 3. **File upload failures**: Check file size and format restrictions
 4. **Chart generation errors**: Ensure Python packages are installed
+5. **Windows path issues**: Use `start.bat` or `start.ps1` scripts
 
 ### Debug Mode
 
@@ -215,6 +235,7 @@ For support and questions:
 - Create an issue in the repository
 - Check the troubleshooting section
 - Review the API documentation
+- Use the startup scripts for Windows
 
 ## 🔮 Future Enhancements
 

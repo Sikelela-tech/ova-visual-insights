@@ -1,6 +1,5 @@
 import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import Anthropic from '@anthropic-ai/sdk';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface AIAnalysisRequest {
@@ -11,7 +10,7 @@ export interface AIAnalysisRequest {
     dataTypes: Record<string, string>;
     rowCount: number;
   };
-  model: 'openai' | 'gemini' | 'claude' | 'deepseek';
+  model: 'openai' | 'gemini';
 }
 
 export interface AIAnalysisResponse {
@@ -26,7 +25,6 @@ export interface AIAnalysisResponse {
 export class AIService {
   private openai: OpenAI;
   private gemini: GoogleGenerativeAI;
-  private anthropic: Anthropic;
 
   constructor() {
     this.openai = new OpenAI({
@@ -34,10 +32,6 @@ export class AIService {
     });
 
     this.gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
-
-    this.anthropic = new Anthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-    });
   }
 
   async analyzeData(request: AIAnalysisRequest): Promise<AIAnalysisResponse> {
@@ -52,9 +46,6 @@ export class AIService {
           break;
         case 'gemini':
           response = await this.analyzeWithGemini(query, datasetInfo);
-          break;
-        case 'claude':
-          response = await this.analyzeWithClaude(query, datasetInfo);
           break;
         default:
           throw new Error(`Unsupported AI model: ${model}`);
@@ -101,24 +92,6 @@ export class AIService {
     const result = await model.generateContent(prompt);
     const response = result.response.text();
     
-    return this.parseAIResponse(response);
-  }
-
-  private async analyzeWithClaude(query: string, datasetInfo: any): Promise<Omit<AIAnalysisResponse, 'id' | 'timestamp'>> {
-    const prompt = this.buildAnalysisPrompt(query, datasetInfo);
-    
-    const message = await this.anthropic.messages.create({
-      model: "claude-3-sonnet-20240229",
-      max_tokens: 2000,
-      messages: [
-        {
-          role: "user",
-          content: prompt
-        }
-      ]
-    });
-
-    const response = message.content[0]?.text || '';
     return this.parseAIResponse(response);
   }
 
